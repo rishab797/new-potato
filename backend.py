@@ -24,7 +24,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-model = tf.keras.models.load_model("unet_model.h5")
+model = tf.keras.models.load_model("unet_model.keras")
 IMG_SIZE = 256
 CLASS_COLORS = {0: (0, 0, 0), 1: (0, 255, 0), 2: (0, 0, 255)}
 
