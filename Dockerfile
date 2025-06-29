@@ -1,32 +1,33 @@
-# Use an official Python runtime as a base image
+# Base image
 FROM python:3.10-slim
 
-# Set environment variables
+# Environment setup
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# Install system dependencies
+# Install dependencies including libGL
 RUN apt-get update && apt-get install -y \
     build-essential \
     libglib2.0-0 \
     libsm6 \
     libxrender1 \
     libxext6 \
+    libgl1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
+# Set work directory
 WORKDIR /app
 
-# Copy requirements and install dependencies
-COPY requirements.txt /app/
+# Install Python dependencies
+COPY requirements.txt .
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Copy the whole project
-COPY . /app/
+# Copy project files
+COPY . .
 
-# Expose port (optional for local test)
+# Expose port
 EXPOSE 8000
 
-# Start the FastAPI app with uvicorn
+# Start the FastAPI app
 CMD ["uvicorn", "backend:app", "--host", "0.0.0.0", "--port", "8000"]
