@@ -23,6 +23,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+from tensorflow.keras.models import load_model
 
 model = tf.keras.models.load_model("unet_model.keras")
 IMG_SIZE = 256
